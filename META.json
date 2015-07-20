@@ -1,0 +1,52 @@
+{
+    "name": "cert",
+    "abstract": "X509 Digital Certificates",
+    "description": "A long description",
+    "version": "0.1.0",
+    "maintainer": "Bear Giles <bgiles@coyotesong.com>"
+    "license": "postgresql",
+    "prereqs": {
+        "runtime": {
+            "requires": {
+                "bignum": "0.8.0"
+            }
+        }
+    },
+    "provides": {
+        "cert": {
+            "abstract": "X509 Digital Certificates",
+            "file": "sql/cert.sql",
+            "docfile": "doc/cert.md",
+            "version": "0.0.1"
+        }
+    },
+    "release_status": "unstable",
+    "resources": {
+        "bugtracker": {
+            "web": "http://change.me"
+        },
+        "repository": {
+          "url":  "git://change.me/cert.git",
+          "web":  "http://change.me",
+          "type": "git"
+        }
+    },
+
+    "generated_by": "Bear Giles <bgiles@coyotesong.com>",
+
+
+    "meta-spec": {
+        "version": "1.0.0",
+        "url": "http://pgxn.org/meta/spec.txt"
+    },
+
+	"tags": [
+		"security",
+		"digital certificates",
+		"x509",
+		"x.509",
+		"user-defined type",
+		"UDT",
+		"OpenSSL"
+	]
+}
