@@ -3,7 +3,7 @@
     "abstract": "X509 Digital Certificates",
     "description": "A long description",
     "version": "0.1.0",
-    "maintainer": "Bear Giles <bgiles@coyotesong.com>"
+    "maintainer": "Bear Giles <bgiles@coyotesong.com>",
     "license": "postgresql",
     "prereqs": {
         "runtime": {
@@ -22,18 +22,14 @@
     },
     "release_status": "unstable",
     "resources": {
-        "bugtracker": {
-            "web": "http://change.me"
-        },
         "repository": {
-          "url":  "git://change.me/cert.git",
-          "web":  "http://change.me",
+          "url":  "https://github.com/beargiles/pg-cert",
+          "web":  "https://github.com/beargiles/pg-cert",
           "type": "git"
         }
     },
 
     "generated_by": "Bear Giles <bgiles@coyotesong.com>",
-
 
     "meta-spec": {
         "version": "1.0.0",
