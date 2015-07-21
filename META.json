@@ -2,7 +2,7 @@
     "name": "cert",
     "abstract": "X509 Digital Certificates",
     "description": "A long description",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "maintainer": "Bear Giles <bgiles@coyotesong.com>",
     "license": "postgresql",
     "prereqs": {
@@ -17,7 +17,7 @@
             "abstract": "X509 Digital Certificates",
             "file": "sql/cert.sql",
             "docfile": "doc/cert.md",
-            "version": "0.0.1"
+            "version": "0.1.1"
         }
     },
     "release_status": "unstable",

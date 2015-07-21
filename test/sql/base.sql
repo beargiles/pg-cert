@@ -53,9 +53,16 @@ select * from certs;
 select get_version(cert) from certs;
 
 --
--- get basic information about the certificate.
+-- get basic information about the certificates.
 --
 select get_serial_number(cert), get_not_before(cert), 
 	get_not_after(cert), get_issuer(cert), get_subject(cert) from certs;
+
+--
+-- get public key associated with the certificates.
+--
+select get_public_key(cert) from certs;
+
+-- select get_basic_info(cert) from certs;
 
 ROLLBACK;
