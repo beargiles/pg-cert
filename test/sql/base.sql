@@ -61,8 +61,30 @@ select get_serial_number(cert), get_not_before(cert),
 --
 -- get public key associated with the certificates.
 --
-select get_public_key(cert) from certs;
+-- select get_public_key(cert) from certs;
 
 -- select get_basic_info(cert) from certs;
 
+--
+-- store DSA parameters
+--
+create table dp (
+	d	dsa_params
+);
+
+insert into dp values('-----BEGIN DSA PARAMETERS-----
+MIIBHwKBgQCGIeexFs4ojvI/P2XCJITgkQUj290g3b0XEkp52bA7TzGisr/yclgo
+gQaNgOMFl1ihZsb9+TXQ6EVuOjU9kRxg+q8RiOlBfjfECG4iHPJCZkCSlq3Ru/q8
+G6MstbYd1JFs+3EnhRUzBbYzsJVRxRK2aWVPpBK9eO0KO7/XpoyPoQIVANxy/fCk
+2GZ1obvQ/Tb9yJ8VxZXlAoGBAIMqIgE3BBxOlWPiwPMA9hZrYO9j14ocktABqM/q
++HkZt/+79Prkep2obLgWfxcSUmb7VvtBoazAa5Ru14xvz16TUXj4wFJ+0MVsCI2c
+o2RDrQCDKFh0pUITewdUXQfADJLq/kgeSJYwHg3YTDeWNlvvxEQnQvAFQfX6dX+w
+ZpE+
+-----END DSA PARAMETERS-----');
+
+select d, size(d) from dp;
+
+
+-- get dsa parameters
+select generate_dsa_params(1024);
 ROLLBACK;

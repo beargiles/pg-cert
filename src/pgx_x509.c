@@ -370,6 +370,7 @@ Datum pgx_x509_get_subject(PG_FUNCTION_ARGS) {
 /*
  * Get certificate 'public key'.
  */
+/*
 PG_FUNCTION_INFO_V1(pgx_x509_get_public_key);
 
 Datum pgx_x509_get_public_key(PG_FUNCTION_ARGS) {
@@ -379,10 +380,11 @@ Datum pgx_x509_get_public_key(PG_FUNCTION_ARGS) {
 
     READ_CERT(0);
     
-    key = X509_get_pubkey(cert);
-    result = x509_pubkey_to_bytea;
+    key = X509_get_X509_PUBKEY(cert);
+    result = x509_pubkey_to_bytea(key);
     X509_PUBKEY_free(key);
     X509_free(cert);
     
     PG_RETURN_BYTEA_P(result);
 }
+*/

@@ -32,31 +32,31 @@ X509_REQ * x509_req_from_bytea(const bytea *raw) {
 	return (X509_REQ *) pgx_X_from_bytea(raw, X509_REQ_new, d2i_X509_REQ_bio);
 }
 
-char * x509_req_to_string(const X509_REQ *cert) {
-	return pgx_X_to_string(cert, PEM_write_bio_X509_REQ);
+char * x509_req_to_string(const X509_REQ *req) {
+	return pgx_X_to_string(req, PEM_write_bio_X509_REQ);
 }
 
-bytea * x509_req_to_bytea(const X509_REQ *cert) {
-	return pgx_X_to_bytea(cert, i2d_X509_REQ_bio);
+bytea * x509_req_to_bytea(const X509_REQ *req) {
+	return pgx_X_to_bytea(req, i2d_X509_REQ_bio);
 }
 
 /*************************************************************************/
 
 /*
- * Code fragment that reads certificate
+ * Code fragment that reads certificate request
  */
-#define READ_CERT(idx) \
+#define READ_CERT_REQ(idx) \
 	{ \
 		bytea *raw = PG_GETARG_BYTEA_P(idx); \
     	if (raw == NULL || VARSIZE(raw) == VARHDRSZ) { \
         	PG_RETURN_NULL(); \
     	} \
 		\
-    	cert = x509_from_bytea(raw); \
-    	if (cert == NULL) { \
+    	req = x509_req_from_bytea(raw); \
+    	if (req == NULL) { \
        		ereport(ERROR, \
                 (errcode(ERRCODE_DATA_CORRUPTED), errmsg( \
-                        "unable to decode X509 record"))); \
+                        "unable to decode X509_REQ record"))); \
 		} \
     }
 

@@ -1,1 +1,3 @@
 DROP TYPE cert CASCADE;
+DROP TYPE cert_req CASCADE;
+DROP TYPE dsa_params CASCADE;

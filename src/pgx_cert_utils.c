@@ -34,10 +34,16 @@ void * pgx_X_from_string(const char *txt,
 		int (*read)(BIO *, void **, pem_password_cb *, void *)) {
     BIO *inp;
 	void *x;
+	int r;
 
 	x = new_object();
     inp = BIO_new_mem_buf((char *) txt, strlen(txt));
-    read(inp, &x, 0, NULL);
+
+    if ((r = read(inp, &x, 0, NULL)) == NULL) {
+            ereport(ERROR,
+                (errcode(ERRCODE_DATA_CORRUPTED), errmsg("%s:%d: unable to retrieve data (%d) 1", __FILE__, __LINE__, ERR_get_error())));
+    }
+    
     BIO_free(inp);
 
     return x;
@@ -51,11 +57,17 @@ void * pgx_X_from_bytea(const bytea *raw,
 		int (*d2i)(BIO *, void **)) {
     BIO *bio;
 	void *x;
+	int r;
 
     bio = BIO_new_mem_buf(VARDATA(raw), VARSIZE(raw) - VARHDRSZ);
     BIO_set_close(bio, BIO_NOCLOSE);
 	x = new_object();
-    d2i(bio, &x);
+
+    if ((r = d2i(bio, &x)) == NULL) {
+        ereport(ERROR,
+                (errcode(ERRCODE_DATA_CORRUPTED), errmsg("%s:%d: unable to retrieve data (%d) 2", __FILE__, __LINE__, ERR_get_error())));
+    }
+
     BIO_free(bio);
 
     return x;
@@ -68,11 +80,17 @@ char * pgx_X_to_string(const void *x, int(*f)(BIO *, const void *)) {
     BIO *bio = BIO_new(BIO_s_mem());
     int len;
     char *ptr, *result;
+    int r;
 
-	f(bio, x);
+	if ((r = f(bio, x)) != 1) {
+        ereport(ERROR,
+                (errcode(ERRCODE_DATA_CORRUPTED), errmsg("%s:%d: unable to retrieve data", __FILE__, __LINE__)));
+    }
 
-    len = BIO_number_written(bio);
-    BIO_get_mem_data(bio, &ptr);
+    if ((len = BIO_get_mem_data(bio, &ptr)) < 0) {
+        elog(WARNING, "openssl error %d", ERR_get_error());
+    }
+
     result = palloc(len + 1);
     strncpy(result, ptr, len);
     result[len] = '\0';
@@ -89,11 +107,16 @@ bytea *pgx_X_to_bytea(const void *x, int(*i2d)(BIO *, const void *)) {
     int len;
     bytea *result;
     char *ptr;
+    int r;
 
-	i2d(bio, x);
+	if ((r = i2d(bio, x)) != 1) {
+        ereport(ERROR,
+                (errcode(ERRCODE_DATA_CORRUPTED), errmsg("%s:%d: unable to retrieve data", __FILE__, __LINE__)));
+	}
 
-    len = BIO_number_written(bio);
-    BIO_get_mem_data(bio, &ptr);
+    if ((len = BIO_get_mem_data(bio, &ptr)) < 0) {
+        elog(WARNING, "openssl error %d", ERR_get_error());
+    }
 
     result = (bytea *) palloc(len + 1 + VARHDRSZ);
     memcpy(VARDATA(result), ptr, len);

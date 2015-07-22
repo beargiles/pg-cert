@@ -28,18 +28,34 @@ extern bytea *x509_to_bytea(const X509 *cert);
 //
 // X.509 certificate public keys
 //
-extern X509_PUBKEY *x509_pubkey_from_string(const char *txt);
-extern X509_PUBKEY *x509_pubkey_from_bytea(const bytea *raw);
-extern char *x509_pubkey_to_string(const X509_PUBKEY *cert);
-extern bytea *x509_pubkey_to_bytea(const X509_PUBKEY *cert);
+//extern X509_PUBKEY *x509_pubkey_from_string(const char *txt);
+//extern X509_PUBKEY *x509_pubkey_from_bytea(const bytea *raw);
+//extern char *x509_pubkey_to_string(const X509_PUBKEY *cert);
+//extern bytea *x509_pubkey_to_bytea(const X509_PUBKEY *cert);
 
 //
 // X.509 certificate requests
 //
 extern X509_REQ *x509_req_from_string(const char *txt);
 extern X509_REQ *x509_req_from_bytea(const bytea *raw);
-extern char *x509_req_to_string(const X509_REQ *cert);
-extern bytea *x509_req_to_bytea(const X509_REQ *cert);
+extern char *x509_req_to_string(const X509_REQ *req);
+extern bytea *x509_req_to_bytea(const X509_REQ *req);
+
+//
+// RSA keypairs
+//
+extern RSA *rsa_from_string(const char *txt);
+extern RSA *rsa_from_bytea(const bytea *raw);
+extern char *rsa_to_string(const RSA *key);
+extern bytea *rsa_to_bytea(const RSA *key);
+
+//
+// DSA keypairs
+//
+extern DSA *dsa_params_from_string(const char *txt);
+extern DSA *dsa_params_from_bytea(const bytea *raw);
+extern char *dsa_params_to_string(const DSA *key);
+extern bytea *dsa_params_to_bytea(const DSA *key);
 
 extern bytea *bignum_to_bytea(BIGNUM *bn);
 extern int asn1Time_to_timestamp(ASN1_TIME *asn1, Timestamp *dt);

@@ -36,18 +36,18 @@ CREATE TYPE cert (
 --
 CREATE TYPE pubkey;
 
-CREATE OR REPLACE FUNCTION pubkey_in(cstring) RETURNS pubkey
-AS 'cert', 'pgx_x509_pubkey_in'
-LANGUAGE C IMMUTABLE STRICT;
+--CREATE OR REPLACE FUNCTION pubkey_in(cstring) RETURNS pubkey
+--AS 'cert', 'pgx_x509_pubkey_in'
+--LANGUAGE C IMMUTABLE STRICT;
 
-CREATE OR REPLACE FUNCTION pubkey_out(pubkey) RETURNS CSTRING
-AS 'cert', 'pgx_x509_pubkey_out'
-LANGUAGE C IMMUTABLE STRICT;
+--CREATE OR REPLACE FUNCTION pubkey_out(pubkey) RETURNS CSTRING
+--AS 'cert', 'pgx_x509_pubkey_out'
+--LANGUAGE C IMMUTABLE STRICT;
 
-CREATE TYPE pubkey (
-    INPUT   = pubkey_in,
-    OUTPUT  = pubkey_out
-);
+--CREATE TYPE pubkey (
+--    INPUT   = pubkey_in,
+--    OUTPUT  = pubkey_out
+--);
 
 -- ---------------------------------------------------------------------------------
 
@@ -121,6 +121,44 @@ LANGUAGE C IMMUTABLE STRICT;
 --
 -- Get public key associated with certificate
 --
-CREATE OR REPLACE FUNCTION get_public_key(cert) RETURNS pubkey
-AS 'cert', 'pgx_x509_get_public_key'
+--CREATE OR REPLACE FUNCTION get_public_key(cert) RETURNS pubkey
+--AS 'cert', 'pgx_x509_get_public_key'
+--LANGUAGE C IMMUTABLE STRICT;
+
+-- --------------------------------------------------------
+
+--
+-- Create type
+--
+CREATE TYPE dsa_params;
+
+CREATE OR REPLACE FUNCTION dsa_params_in(cstring) RETURNS dsa_params
+AS 'cert', 'pgx_dsa_params_in'
 LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OR REPLACE FUNCTION dsa_params_out(dsa_params) RETURNS CSTRING
+AS 'cert', 'pgx_dsa_params_out'
+LANGUAGE C IMMUTABLE STRICT;
+
+CREATE TYPE dsa_params (
+    INPUT   = dsa_params_in,
+    OUTPUT  = dsa_params_out
+);
+
+CREATE OR REPLACE FUNCTION size(dsa_params) RETURNS int
+AS 'cert', 'pgx_dsa_size_dsa_params'
+LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OR REPLACE FUNCTION generate_dsa_params(int) RETURNS dsa_params
+AS 'cert', 'pgx_dsa_generate_dsa_params'
+LANGUAGE C IMMUTABLE STRICT;
+
+--CREATE OR REPLACE FUNCTION generate_keypair(dsa_params) RETURNS BLOB
+--AS 'cert', 'pgx_dsa_generate_dsa_keypair'
+--LANGUAGE C IMMUTABLE STRICT;
+
+-- create function to create parameters, generate DSA key.
+-- --------------------------------------------------------
+
+-- --------------------------------------------------------
+
