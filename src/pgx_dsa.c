@@ -98,6 +98,10 @@ Datum pgx_dsa_params_in(PG_FUNCTION_ARGS) {
         PG_RETURN_NULL();
     }
 
+    // apps.c:load_key
+    // apps.c: X509_NAME *parse_name()...
+    // int bio_to_mem(unsigned char ** out, int maxlen, BIO *in)
+
     // write DSAparams into buffer
     params = dsa_params_from_string(txt);
     if (params == NULL) {

@@ -125,6 +125,41 @@ LANGUAGE C IMMUTABLE STRICT;
 --AS 'cert', 'pgx_x509_get_public_key'
 --LANGUAGE C IMMUTABLE STRICT;
 
+-- RFC
+CREATE OR REPLACE FUNCTION get_signature(cert) RETURNS TEXT
+AS 'cert', 'pgx_x509_get_signature'
+LANGUAGE C IMMUTABLE STRICT;
+
+-- RFC
+-- CREATE OR REPLACE FUNCTION get_uri(cert) RETURNS TEXT
+-- AS 'cert', 'pgx_x509_get_uri'
+-- LANGUAGE C IMMUTABLE STRICT;
+
+-- RFC
+CREATE OR REPLACE FUNCTION get_issuer_hash(cert) RETURNS TEXT
+AS 'cert', 'pgx_x509_get_issuer_hash'
+LANGUAGE C IMMUTABLE STRICT;
+
+-- RFC
+CREATE OR REPLACE FUNCTION get_iands_hash(cert) RETURNS TEXT
+AS 'cert', 'pgx_x509_get_iands_hash'
+LANGUAGE C IMMUTABLE STRICT;
+
+-- RFC
+CREATE OR REPLACE FUNCTION get_common_name(cert) RETURNS TEXT
+AS 'cert', 'pgx_x509_get_common_name'
+LANGUAGE C IMMUTABLE STRICT;
+
+-- RFC
+CREATE OR REPLACE FUNCTION get_subject_hash(cert) RETURNS TEXT
+AS 'cert', 'pgx_x509_get_subject_hash'
+LANGUAGE C IMMUTABLE STRICT;
+
+-- RFC
+CREATE OR REPLACE FUNCTION get_subject_keyid_hash(cert) RETURNS TEXT
+AS 'cert', 'pgx_x509_get_skid_hash'
+LANGUAGE C IMMUTABLE STRICT;
+
 -- --------------------------------------------------------
 
 --

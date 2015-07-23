@@ -388,3 +388,101 @@ Datum pgx_x509_get_public_key(PG_FUNCTION_ARGS) {
     PG_RETURN_BYTEA_P(result);
 }
 */
+
+/*************************************************************************
+ *
+ * RFC...
+ *
+ * These functions provide standard search values.
+ *
+ *************************************************************************/
+
+/*
+ * Get certificate 'signature' or 'cert hash'.
+ */
+PG_FUNCTION_INFO_V1(pgx_x509_get_signature);
+
+Datum pgx_x509_get_signature(PG_FUNCTION_ARGS) {
+    X509 *cert;
+
+    READ_CERT(0);
+    
+    PG_RETURN_NULL();
+}
+
+/*************************************************************************/
+
+/*
+ * Get certificate 'issuer hash (iHash)'
+ */
+PG_FUNCTION_INFO_V1(pgx_x509_get_issuer_hash);
+
+Datum pgx_x509_get_issuer_hash(PG_FUNCTION_ARGS) {
+    X509 *cert;
+
+    READ_CERT(0);
+    
+    PG_RETURN_NULL();
+}
+
+/*************************************************************************/
+
+/*
+ * Get certificate 'subject hash (sHash)'
+ */
+PG_FUNCTION_INFO_V1(pgx_x509_get_subject_hash);
+
+Datum pgx_x509_get_subject_hash(PG_FUNCTION_ARGS) {
+    X509 *cert;
+
+    READ_CERT(0);
+    
+    PG_RETURN_NULL();
+}
+
+/*************************************************************************/
+
+/*
+ * Get certificate 'issuer and serial number hash (iAndSHash)'
+ */
+PG_FUNCTION_INFO_V1(pgx_x509_get_iands_hash);
+
+Datum pgx_x509_get_iands_hash(PG_FUNCTION_ARGS) {
+    X509 *cert;
+
+    READ_CERT(0);
+    
+    PG_RETURN_NULL();
+}
+
+/*************************************************************************/
+
+/*
+ * Get certificate (subject) 'common name'
+ */
+PG_FUNCTION_INFO_V1(pgx_x509_get_common_name);
+
+Datum pgx_x509_get_common_name(PG_FUNCTION_ARGS) {
+    X509 *cert;
+
+    READ_CERT(0);
+    
+    PG_RETURN_NULL();
+}
+
+/*************************************************************************/
+
+/*
+ * Get certificate 'subject key id hash (sKIDHash)'
+ */
+PG_FUNCTION_INFO_V1(pgx_x509_get_skid_hash);
+
+Datum pgx_x509_get_skid_hash(PG_FUNCTION_ARGS) {
+    X509 *cert;
+
+    READ_CERT(0);
+    
+    PG_RETURN_NULL();
+}
+
+/*************************************************************************/
