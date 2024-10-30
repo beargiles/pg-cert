@@ -1,5 +1,53 @@
-cert
-====
+# pg-cert - PostgreSQL Server extension for Digital Certificates
+
+This repository contains a PostgreSQL Server extension for digital certificates.
+
+It started as part of an effort to clean up prior work going back to the late '90s
+but I got side-tracked and never came back to it since I felt the needs and
+available technologies had changed. E.g., with the 'pl/java' plugin I could
+implement the same functionality in java using BouncyCastle.
+
+Two things have changed since then. The first is that PostgreSQL has had support
+for 'Foreign Data Wrappers' (FDW) for some time. This would be a natural encapsulation
+of on-prem keystores. As of the last time I checked the 'pl/java' extension doesn't
+support FDW but I thought I might be able to contribute a read-only implementation
+of one.
+
+The second is that I've had some growing concern about a mismatch between this
+and the current implementation of the 'pl/java' extension. The latter isn't incorrect -
+far from it - but it's probably not a good match for my goals here.
+
+
+## Updated Goals
+
+The updated goals are:
+
+- remove deprecated libssl calls
+- support additional UDTs and related UDFs
+- add pkcs12/p12 FDW
+- add 'live' tests using java + testcontainers (uses docker)
+
+
+### Source code organization
+
+With the addition of the live tests there will be a slight modification to the
+source code layout. It will be modified to match the layout used by maven:
+
+  - src:
+    - main:
+      - c:
+      - java:
+      - resouces:
+        - sql:
+    - test:
+      - c:
+      - java:
+      - resources:
+        - sql:
+
+This is a slight annoyance but I think it will be easier to maintain.
+
+## Legacy read.me
 
 A long description
 
